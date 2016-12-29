@@ -10,13 +10,14 @@ import urllib.request
 import sys
 import datetime
 from lxml import html
-from os import path
+import os
 
 
-def main(file,urlnum):
+def main(filename,urlnum):
 
-    #build url variable
+    # build url variable
     url = "http://www.allocine.fr/film/fichefilm_gen_cfilm="+str(urlnum)+".html"
+    file = os.getcwd() + "/" + filename +".csv"
 
     # get HTML data from the page
     page = html.fromstring(urllib.request.urlopen(url).read())
@@ -35,7 +36,7 @@ def main(file,urlnum):
 
 
     try:
-        if path.exists(file):
+        if os.path.exists(file):
             with open(file,"a") as fi:
                 fi.write("\r"+spec[0]+","+spec[1]+","+spec[2])
                 fi.close()
